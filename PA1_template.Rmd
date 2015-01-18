@@ -9,6 +9,7 @@ output:
 ## Loading and preprocessing the data
 
 ```{r}
+
 activity <-read.csv('activity.csv')
 aggSteps <- aggregate(steps ~ date, data = activity, sum, na.rm =TRUE)
 summary(aggSteps)    
@@ -20,7 +21,7 @@ summary(aggSteps)
 hist(aggSteps$steps)
 ```
 
-##2. Mean and Median total number of steps take per day
+###2. Mean and Median total number of steps take per day
 ```{r}
 mean(aggSteps$steps, na.rm=TRUE)
 median(x = aggSteps$steps, na.rm = TRUE)
@@ -30,11 +31,32 @@ median(x = aggSteps$steps, na.rm = TRUE)
 - The median total is `10765` steps
 
 ## What is the average daily activity pattern?
+###1. Time series plot of the 5-minute interval(x-axis) and the average number of steps taken, averaged across all days (y-axis)
+```{r}
+stepsInterval <- aggregate(steps ~ interval, data = activity, mean, na.rm = TRUE)
+plot(steps ~ interval, data = stepsInterval, type = "l")
+```
 
+###2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
+```{r}
+stepsInterval[which.max(stepsInterval$steps), ]$interval
+```
 
 ## Inputing missing values
 
+### Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
+```{r}
+sum(is.na(activity$steps))
+```
 
+### Devise a strategy for filling in all of the missing values in the dataset. 
 
-## Are there differences in activity patterns between weekdays and weekends?
+```{r}
+interval2steps <- function(interval) {
+    stepsInterval[stepsInterval$interval == interval, ]$steps
+}
+
+```
+
+### Create a new dataset
