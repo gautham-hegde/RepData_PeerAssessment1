@@ -6,33 +6,26 @@
 
 ```r
 activity <-read.csv('activity.csv')
-summary(activity)
+aggSteps <- aggregate(steps ~ date, data = activity, sum, na.rm =TRUE)
+summary(aggSteps)    
 ```
 
 ```
-##      steps                date          interval     
-##  Min.   :  0.00   2012-10-01:  288   Min.   :   0.0  
-##  1st Qu.:  0.00   2012-10-02:  288   1st Qu.: 588.8  
-##  Median :  0.00   2012-10-03:  288   Median :1177.5  
-##  Mean   : 37.38   2012-10-04:  288   Mean   :1177.5  
-##  3rd Qu.: 12.00   2012-10-05:  288   3rd Qu.:1766.2  
-##  Max.   :806.00   2012-10-06:  288   Max.   :2355.0  
-##  NA's   :2304     (Other)   :15840
-```
-
-```r
-names(activity)
-```
-
-```
-## [1] "steps"    "date"     "interval"
+##          date        steps      
+##  2012-10-02: 1   Min.   :   41  
+##  2012-10-03: 1   1st Qu.: 8841  
+##  2012-10-04: 1   Median :10765  
+##  2012-10-05: 1   Mean   :10766  
+##  2012-10-06: 1   3rd Qu.:13294  
+##  2012-10-07: 1   Max.   :21194  
+##  (Other)   :47
 ```
 
 ## What is mean total number of steps taken per day?
-##1. Histogram of total number of steps taken
+###1. Histogram of total number of steps taken
 
 ```r
-hist(activity$steps)
+hist(aggSteps$steps)
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-2-1.png) 
@@ -40,20 +33,22 @@ hist(activity$steps)
 ##2. Mean and Median total number of steps take per day
 
 ```r
-mean(activity$steps, na.rm=TRUE)
+mean(aggSteps$steps, na.rm=TRUE)
 ```
 
 ```
-## [1] 37.3826
+## [1] 10766.19
 ```
 
 ```r
-median(x = activity$steps, na.rm = TRUE)
+median(x = aggSteps$steps, na.rm = TRUE)
 ```
 
 ```
-## [1] 0
+## [1] 10765
 ```
+- The mean total is `10766.19` steps per day
+- The median total is `10765` steps
 
 ## What is the average daily activity pattern?
 
