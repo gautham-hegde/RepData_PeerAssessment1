@@ -8,17 +8,30 @@ output:
 
 ## Loading and preprocessing the data
 
-
+```{r}
+activity <-read.csv('activity.csv')
+summary(activity)
+names(activity)
+```
 
 ## What is mean total number of steps taken per day?
+##1. Histogram of total number of steps taken
+```{r}
+hist(activity$steps)
+```
 
+##2. Mean and Median total number of steps take per day
+```{r}
+mean(activity$steps, na.rm=TRUE)
+median(x = activity$steps, na.rm = TRUE)
 
+```
 
 ## What is the average daily activity pattern?
 
 
 
-## Imputing missing values
+## Inputing missing values
 
 
 
